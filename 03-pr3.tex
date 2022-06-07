@@ -1,0 +1,94 @@
+\section{\Large Príklad 3C}
+{\Large Zadané hodnoty:}
+{\Large 
+
+$U$ = 110V,
+
+$I_1$ = 0,85A, $I_2$ = 0,75A
+
+$R_1$ = 44$\Omega$, $R_2$ = 31$\Omega$, $R_3$ = 56$\Omega$,
+
+$R_4$ = 20$\Omega$, $R_5$ = 30$\Omega$}
+
+\begin{center}
+\begin{circuitikz} \draw
+
+
+(1,6) to [dcvsource] (1,2) -- (4, 2)
+      to [generic, a=$R_2$] (4,6)
+      to [generic, a=$R_1$] (1,6) -- (1,6)
+      
+(4,6) to [generic, l=$R_3$, *-*] (8,6)     
+      to [generic, a=$R_5$] (8,2)     
+      to [generic, a=$R_4$, *-*] (4,2)  
+      
+(8,2) -- (8,0) 
+      to [ioosource] (4,0) -- (4,2)
+
+(8,6) -- (10,6) 
+      to [ioosource] (10,2) -- (8,2);
+      
+
+\draw (7.5,5.5) [->] node[left] {$U_B$} -- (4.5,2.5);
+\draw (3, 5.5) [->] node[left] {$U_A$} -- (3, 2.5);
+\draw (7.5,1.5) [->] node[below] {$U_C$} -- (4.5,1.5);
+
+\draw (3.5, 4.5) [->] node[above] {$U_{R2}$} -- (3.5, 3.5);
+\draw (4,5.4) [very thick,->] node[right] {$I_{R2}$} -- (4,4.8);
+
+\draw (5.5,-0.7) [->] node[below] {$I_2$} -- (6.5,-0.7);
+\draw (10.7, 3.5) [->] node[right] {$I_1$} -- (10.7, 4.5);
+\draw (0.3,4.5) [->] node[left] {$U_{EKV}$} -- (0.3,3.5);
+
+\draw (4,6) [-] node[above] {$A$} -- (4,6);
+\draw (8,6) [-] node[above] {$B$} -- (8,6);
+\draw (8.3,1.5) [-] node[above] {$C$} -- (8.3,1.5);
+
+\end{circuitikz}
+\end{center}
+
+
+{\Large Určíme jednotlivé uzly:} 
+
+{\large\[ A \rightarrow I_{R_1} - I_{R_2} - I_{R_3} = 0\]}
+{\large\[ B \rightarrow I_{R_3} + I_1 - I_{R_5} = 0\]}
+{\large\[ C \rightarrow I_{R_5} - I_{R_4} + I_2 - I_1 = 0\]}
+\newpage
+
+{\Large Odvodíme jednotlivé napätia:}
+{\large\[ A \rightarrow \frac{U - U_A}{R_1} - \frac{U_A}{R_2} - \frac{U_A - U_B}{R_3} = 0\]}
+{\large\[ A \rightarrow \frac{110 - U_A}{44} - \frac{U_A}{31} - \frac{U_A - U_B}{56} = 0\]}
+{\large\[ A \rightarrow 190960 - 1736U_A - 2464U_A - 1364U_A + 1364U_B = 0\]}
+{\large\[ A \rightarrow U_A = \frac{190960 + 1364U_B}{5564}\]}
+\bigskip
+
+{\large\[ B \rightarrow \frac{U_A - U_B}{R_3} + I_1 - \frac{U_B - U_C}{R_5} = 0\]}
+{\large\[ B \rightarrow \frac{U_A - U_B}{56} + 0,85 - \frac{U_B - U_C}{30} = 0\]}
+{\large\[ B \rightarrow 30U_A - 30U_B + 1428 - 56U_B + 56U_C = 0\]}
+{\large\[ B \rightarrow 30U_A - 86U_B + 56U_C = -1428\]}
+\bigskip
+
+{\large\[ C \rightarrow \frac{U_B - U_C}{R_3} - \frac{U_C}{R_4} + I_2 - I_1 = 0\]}
+{\large\[ C \rightarrow \frac{U_B - U_C}{30} - \frac{U_C}{20} + 0,75 - 0,85 = 0\]}
+{\large\[ C \rightarrow 20U_B - 20U_C - 30U_C - 60 = 0\]}
+{\large\[ C \rightarrow U_C = \frac{20U_B - 60}{50}\]}
+\newpage
+
+{\Large Dosadíme $U_A$ a $U_C$ do $U_B$:}
+
+{\large\[ 30U_A - 86U_B + 56U_C = -1428\]}
+{\large\[ 30\left(\frac{190960 + 1364U_B}{5564}\right) - 86U_B + 56\left(\frac{20U_B - 60}{50}\right) = -1428\]}
+{\large\[ \frac{5728800 + 40920U_B}{5564} - 86U_B + \frac{1120U_B - 3360}{50} = -1428\]}
+{\large\[ 50(5728800 + 40920U_B) - 23925200U_B + 5564(1120U_B - 3360) = -397269600\]}
+{\large\[ -15647520U_B + 267744960 = -397269600\]}
+{\large\[ U_B = \frac{665014560}{-15647520}\]}
+{\large\[ U_B \doteq 42,49968V\]}
+\bigskip
+
+{\Large Vypočítame $U_{R_2}$($U_A$) a $I_{R_2}$:}
+{\large\[ U_{R_2} = U_A = \frac{190960 + 1364U_B}{5564}\]}
+{\large\[ U_{R_2} = \frac{190960 + 1364(42,49968)}{5564} = \frac{190960 + 57969,56352}{5564} = \frac{388952443}{8693750}\]}
+{\large\[ U_{R_2} \doteq 44,7393V\]}
+\bigskip
+
+{\large\[ I_{R_2} = \frac{U_A}{R_2} = \frac{44,7393}{31} \doteq 1,4432A\]}

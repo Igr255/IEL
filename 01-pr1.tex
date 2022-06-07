@@ -1,0 +1,142 @@
+\section{\Large Príklad 1H}
+{\Large Zadané hodnoty:}
+{\Large 
+
+$U_1$ = 125V, $U_2$ = 80V
+
+$R_1$ = 680$\Omega$, $R_2$ = 600$\Omega$, $R_3$ = 260$\Omega$, $R_4$ = 310$\Omega$
+
+$R_5$ = 575$\Omega$, $R_6$ = 870$\Omega$, $R_7$ = 355$\Omega$, $R_8$ = 265$\Omega$}
+
+
+\begin{center}
+\begin{circuitikz} \draw
+
+(3,5) to [generic, l=$R_3$, *-*] (6,5)
+            to [generic,l=$R_5$, -*] (6,7)
+            to [generic,a=$R_1$, -*] (3,7)
+            to [generic,l=$R_2$] (3,5)
+    
+(3,4) to [generic, l=$R_4$] (6,4)
+(3,4) -- (3,5)
+(6,4) -- (6,5)
+
+(6,5) to [generic,l=$R_6$] (10,5)
+      to [generic,l=$R_7$, *-] (10,7) -- (6,7)
+
+(3,7) -- (0,7)
+(0,7) to [dcvsource] (0,4) 
+      to [dcvsource] (0,3) -- (0,2) 
+      to [generic,l=$R_8$] (10,2) -- (10,5);
+      
+\draw (-0.7,6) [->] node[left] {$U_1$} -- (-0.7,5);
+\draw (-0.7,4) [->] node[left] {$U_2$} -- (-0.7,3);
+\draw (7.5,4.5) [->] node[below] {$U_{R6}$} -- (8.5,4.5);
+\draw (6.8,5) [very thick,->] node[above] {$I_{R6}$} -- (7.3,5);
+
+\end{circuitikz}
+\end{center}
+\bigskip
+
+\bigskip
+
+{\Large Obvod upravíme pomocou metódy postupného zjednodušovania:}
+
+\begin{center}
+\begin{circuitikz} \draw
+
+(3,5) to [generic, l=$R_{234}$, -*] (6,5)
+            to [generic,l=$R_5$, -*] (6,7)
+            to [generic,a=$R_1$, -*] (3,7) -- (3,5)
+
+(6,5) to [generic,l=$R_6$, -*] (10,5) -- (10,7) 
+      to [generic,a=$R_7$] (6,7)
+
+(3,7) -- (0,7)
+(0,7) to [dcvsource] (0,3)
+      to [generic,l=$R_8$] (10,3) -- (10,5);
+      
+\draw (-0.7,5.5) [->] node[left] {$U_{EKV}$} -- (-0.7,4.5);
+
+\draw (7.5,4.5) [->] node[below] {$U_{R6}$} -- (8.5,4.5);
+\draw (6.8,5) [very thick,->] node[above] {$I_{R6}$} -- (7.3,5);
+
+\end{circuitikz}
+\end{center}
+
+{\large\[ R_{234} = \frac{R_3R_4}{R_3 + R_4} + R_2 = \frac{260 \times 310}{570} + 600 = \frac{42260}{57}\Omega\]}
+{\large\[ U_{EKV} = U_1 + U_2 = 215V\]}
+\newpage
+{\Large Aplikujeme prevod hviezdy na trojuholník:}
+
+\begin{center}
+\begin{circuitikz} \draw
+
+(3,7) to [generic, l=$R_C$] (6,7)
+(3,5) to [generic, l=$R_B$] (6,5)       
+(3,5) -- (3,7)
+
+(6,5) to [generic,l=$R_6$, -*] (10,5) -- (10,7) 
+      to [generic,a=$R_7$] (6,7)
+
+(3,6) to [generic, a=$R_A$, *-] (0,6)   
+
+(0,6) to [dcvsource] (0,3)
+      to [generic,l=$R_8$] (10,3) -- (10,5);
+      
+\draw (-0.7,5) [->] node[left] {$U_{EKV}$} -- (-0.7,4);
+
+\draw (7.5,4.5) [->] node[below] {$U_{R6}$} -- (8.5,4.5);
+\draw (6.8,5) [very thick,->] node[above] {$I_{R6}$} -- (7.3,5);
+
+\end{circuitikz}
+\end{center}
+
+{\large\[ R_A = \frac{R_{234}R_1}{R_1 + R_5 + R_234} = \frac{574360}{22759}\Omega\]}
+{\large\[ R_B = \frac{R_{234}R_5}{R_1 + R_5 + R_234} = \frac{4859900}{22759}\Omega\]}
+{\large\[ R_C = \frac{R_1R_5}{R_1 + R_5 + R_234} = \frac{4457400}{22759}\Omega\]}
+\bigskip
+
+{\Large Pokračujeme v zjednodušovaní obvodu:}
+
+\begin{center}
+\begin{circuitikz} \draw
+
+(3,7) to [generic, l=$R_{C7}$] (6,7)
+(3,5) to [generic, l=$R_{B6}$, -*] (6,5)       
+(3,5) -- (3,7)
+
+(3,6) to [generic, a=$R_A$, *-] (0,6)   
+
+(0,6) to [dcvsource] (0,3)
+      to [generic,l=$R_8$] (6,3) -- (6,7);
+      
+\draw (-0.7,5) [->] node[left] {$U_{EKV}$} -- (-0.7,4);
+\end{circuitikz}
+\end{center}
+
+{\large\[ R_{C7} = R_C + R_7 = \frac{12536845}{22759}\Omega\]}
+{\large\[ R_{B6} = R_B + R_6 = \frac{24660230}{22759}\Omega\]}
+\newpage
+
+\begin{center}
+\begin{circuitikz} \draw
+
+(3,6) to [generic, a=$R_{EKV}$] (0,6)  
+(0,6) to [dcvsource] (0,3) -- (3,3) -- (3,6);
+      
+\draw (-0.7,5) [->] node[left] {$U_{EKV}$} -- (-0.7,4);
+\end{circuitikz}
+\end{center}
+
+{\large\[ R_{EKV} = R_A + \frac{R_{C7} \times R_{B6}}{R_{C7} + R_{B6}} + R_B =\]}
+{\large\[= \frac{574360}{22759} + \frac{12366459246974}{33862729197}+\frac{24660230}{22759}=\frac{1313391701}{1487883}\Omega\]}
+\bigskip
+
+{\Large Vypočítame $I_{EKV}$:}
+{\large\[ I_{EKV} = \frac{U_{EKV}}{R_{EKV}} = 0,243564A\]}
+
+{\Large Teraz môžeme dopočítať hladané hodnoty $U_6$ a $I_6$:}
+{\large\[ U_{R_{C7B6}} = I_{EKV} \times R_{C7B6} = \frac{125501011667915639}{1410947049875000}V\]}
+{\large\[ I_{R_6} = I_{R_{B6}} = \frac{_{R_{C7B6}}}{R_{B6}} = \frac{50892068593}{619951250000} \doteq 82,0904mA\]}
+{\large\[ U_{R_6} = I_{R_6} \times R_6 = \frac{4427609967591}{61995125000} \doteq 71,4187V\]}

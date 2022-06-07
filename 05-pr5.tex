@@ -1,0 +1,106 @@
+\section{\Large Príklad 5F}
+
+{\Large Zadané hodnoty:}
+{\Large 
+
+$U$ = 22V,
+
+$L$ = 30H
+
+$R$ = 15$\Omega$
+\smallskip
+
+$i_{L(0)}$ = 5$A$
+}
+
+\begin{center}
+\begin{circuitikz} \draw
+
+
+(1,1) to [dcvsource] (1,2)
+      to [closing switch, a=$t_{0s}$] (1,5)
+      to [generic, a=$R$] (6,5)     
+      to [cute inductor , a=$L$] (6,-1) -- (1,-1) -- (1,1);
+      
+
+\draw (0.3,2) [->] node[left] {$U$} -- (0.3,1);
+\end{circuitikz}
+\end{center}
+\bigskip
+
+{\Large Zo zadaných hodnôt odvodíme rovnice:}
+{\large\[ i_L = \frac{u_R}{R} => u_R = u_L \times R\]}
+{\large\[ u_R + u_2 - U = 0 => u_L = U - u_R\]}
+\bigskip
+
+{\Large Napíšeme a doplníme diferenciálnu rovnicu pre $i_L$:}
+{\large\[ i'_L = \frac{u_C}{L}\]}
+{\large\[ i'_L = \frac{U - u_R}{L}\]}
+{\large\[ i'_L = \frac{U - i_L \times R}{L}\]}
+{\large\[ Li'_L = U - i_L \times R => Li'_L + Ri_L = U\]}
+\bigskip
+
+{\Large Dosadíme hodnoty do výslednej rovnice:}
+{\large\[ 30i\textsuperscript{'}_L + 15i_L = 22\]}
+\bigskip
+
+{\Large Definujeme charakteristickú rovnicu:}
+{\large\[ 30\lambda + 15 = 0\]}
+{\large\[ \lambda = -\frac{1}{2}\]}
+\bigskip
+
+{\Large Očakávané riešenie:}
+{\large\[ i_L(t) = K(t) \times e^{\lambda t}\]}
+{\large\[ i_L(t) = K(t) \times e^{-\frac{1}{2} t}\]}
+\bigskip
+
+{\Large Zderivujeme $i_L$ a dosadíme $i_L$ a $i'_L$ do diferenciálnej rovnice:}
+{\large\[ i'_L(t) = K'(t) \times e^{-\frac{1}{2} t} + K(t) \times \left(-\frac{1}{2}\right)e^{-\frac{1}{2} t}\]}
+
+{\large\[ 30\left(K'(t) \times e^{-\frac{1}{2} t} + K(t) \times \left(-\frac{1}{2}\right)e^{-\frac{1}{2} t}\right )+ 15\left(K(t) \times e^{-\frac{1}{2} t}\right) = 22\]}
+
+{\large\[30\left(K'(t) \times e^{-\frac{1}{2} t}\right) - 15\left(K(t) \times e^{-\frac{1}{2} t}\right) + 15\left(K(t) \times e^{-\frac{1}{2} t}\right) = 22\]}
+
+{\large\[30\left(K'(t) \times e^{-\frac{1}{2} t}\right) = 22\]}
+
+{\large\[K'(t) \times e^{-\frac{1}{2} t}= \frac{22}{30}\]}
+\bigskip
+
+{\Large Zintegrujeme rovnicu:}
+{\large\[K'(t) = \frac{11}{15}e^{\frac{1}{2} t}\]}
+{\large\[K(t) = \frac{11}{15} \int e^{\frac{1}{2}t} \times dt\]}
+{\large\[K(t) = \frac{11}{15} \times 2e^{\frac{1}{2}t} + k\]}
+{\large\[K(t) = \frac{22}{15}e^{\frac{1}{2} t} + k\]}
+
+\newpage
+
+{\Large Hodnotu dosadíme do očakávaného riešenia:}
+{\large\[ i_L(t) = K(t) \times e^{-\frac{1}{2} t}\]}
+{\large\[ i_L(t) = K\left(\frac{22}{15}e^{\frac{1}{2} t} + k\right) \times e^{-\frac{1}{2} t}\]}
+{\large\[ i_L(t) = \frac{22}{15} + k \times e^{-\frac{1}{2} t}\]}
+\bigskip
+
+{\Large Dosadíme do počiatočnej podmienky:}
+{\large\[ i_L(0) = \frac{22}{15} + k \times e^{-\frac{1}{2} 0}\]}
+{\large\[ 10 - \frac{22}{15} = k\]}
+{\large\[k = \frac{128}{15}\]}
+\bigskip
+
+{\Large $k$ dosadíme do očakávaného riešenia:}
+{\large\[ i_L(t) = \frac{22}{15} + \frac{128}{15}e^{-\frac{1}{2} t}\]}
+
+\bigskip
+
+{\Large Odvodíme $i'_L$:}
+{\large\[30i'_L + 15\left(K(t) \times e^{-\frac{1}{2} t}\right) = 22\]}
+{\large\[i'_L + \frac{\frac{22}{15} + \frac{128}{15}e^{-\frac{1}{2} t}}{2} = \frac{22}{30}\]}
+{\large\[i'_L + \frac{11}{15} + \frac{64}{15}e^{-\frac{1}{2} t} = \frac{11}{15} \]}
+{\large\[i'_L = -\frac{64}{15}e^{-\frac{1}{2} t} \]}
+\bigskip
+
+{\Large Pre kontrolu výpočtov dosadíme hodnoty do diferenciálnej rovnice:}
+{\large\[Li'_L + Ri_L = U\]}
+{\large\[i'_L + \frac{\frac{22}{15} + \frac{128}{15}e^{-\frac{1}{2} t}}{2} = \frac{22}{30}\]}
+{\large\[-\frac{64}{15}e^{-\frac{1}{2} t} + \frac{64}{15}e^{-\frac{1}{2} t} + \frac{11}{15} = \frac{11}{15}\]}
+{\large\[\frac{11}{15} = \frac{11}{15}\]}
+{\large\[ 0 = 0\]}
